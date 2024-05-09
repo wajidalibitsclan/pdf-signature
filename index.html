@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF Preview</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/pdf-lib@1.4.0/dist/pdf-lib.min.js"></script>
+  </head>
+  <body>
+    <input type="file" id="fileInput" accept=".pdf" />
+    <div id="pdfPreview"></div>
+
+    <button id="downloadButton">Download Modified PDF</button>
+    <script src="preview.js"></script>
+
+    <script>
+      function downloadPDF() {
+        const doc = new PDFDocument();
+        const stream = doc.pipe(blobStream());
+
+        // Iterate through each canvas
+        canvasList.forEach((canvas, index) => {
+          const imgData = canvas.toDataURL("image/jpeg");
+          doc.image(imgData, 0, 0, {
+            width: doc.page.width,
+            height: doc.page.height,
+          });
+          if (index < canvasList.length - 1) {
+            doc.addPage();
+          }
+        });
+
+        // Finalize the PDF document
+        doc.end();
+
+        // Create a blob from the PDF document
+        stream.on("finish", function () {
+          const blob = stream.toBlob("application/pdf");
+
+          // Create a temporary download link
+          const downloadLink = document.createElement("a");
+          downloadLink.href = URL.createObjectURL(blob);
+          downloadLink.download = "modified_pdf.pdf";
+
+          // Trigger download
+          downloadLink.click();
+
+          // Clean up
+          URL.revokeObjectURL(downloadLink.href);
+        });
+      }
+
+      // Attach the downloadPDF function to the download button
+      document
+        .getElementById("downloadButton")
+        .addEventListener("click", downloadPDF);
+    </script>
+  </body>
+</html>
