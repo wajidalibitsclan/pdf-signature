@@ -1,6 +1,12 @@
 document
   .getElementById("fileInput")
   .addEventListener("change", function (event) {
+    const canvasElements = document.querySelectorAll("canvas");
+
+    canvasElements.forEach((canvas) => {
+      canvas.parentNode.removeChild(canvas);
+    });
+
     const file = event.target.files[0];
     const reader = new FileReader();
 

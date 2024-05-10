@@ -7,12 +7,97 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://unpkg.com/pdf-lib@1.4.0/dist/pdf-lib.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      body {
+        background-color: #f7f7f7;
+      }
+      .my-btn {
+        background: linear-gradient(
+          142deg,
+          rgba(223, 27, 15, 1) 0%,
+          rgba(245, 73, 27, 1) 56%,
+          rgba(255, 147, 65, 1) 100%
+        );
+        color: #fff;
+        border-radius: 5px;
+        padding: 0.85rem 2.5rem;
+        font-size: 1rem;
+        font-weight: 400;
+        text-transform: capitalize;
+        box-shadow: none;
+        transition: all 0.2s ease-in-out;
+        border: none;
+        border-radius: 10px;
+      }
+      .my-btn:hover {
+        background: linear-gradient(
+          142deg,
+          rgba(10, 150, 212, 1) 0%,
+          rgba(15, 132, 184, 1) 75%
+        );
+        box-shadow: none;
+        color: #fff;
+        transform: scale(1.1);
+      }
+      canvas:hover {
+        border: 1px solid rgba(255, 147, 65, 1);
+      }
+      .file-btn {
+        position: relative;
+        overflow: hidden;
+      }
+      .file-input {
+        position: absolute;
+        font-size: 50px;
+        opacity: 0;
+        right: 0;
+        top: 0;
+      }
+    </style>
   </head>
   <body>
-    <input type="file" id="fileInput" accept=".pdf" />
-    <div id="pdfPreview"></div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <div class="container">
+        <a class="navbar-brand" href="#"
+          ><img width="75px" src="logo.jpeg" alt=""
+        /></a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item mx-3">
+              <div class="file-btn btn btn-sm my-btn">
+                Upload
+                <input
+                  type="file"
+                  id="fileInput"
+                  class="file-input"
+                  accept=".pdf"
+                />
+              </div>
+            </li>
+            <li class="nav-item">
+              <button id="downloadButton" class="btn btn-sm my-btn">
+                Save
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-    <button id="downloadButton">Download Modified PDF</button>
+    <div class="container my-3">
+      <div class="row">
+        <div class="col-12 text-center">
+          <div id="pdfPreview"></div>
+        </div>
+      </div>
+    </div>
     <script src="preview.js"></script>
 
     <script>
